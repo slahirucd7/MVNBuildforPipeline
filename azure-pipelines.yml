@@ -11,7 +11,6 @@ pr:
   branches:
     include:
     - master
-    - testBranch
 
 jobs:
 - job: Job_1
@@ -20,32 +19,48 @@ jobs:
     vmImage: ubuntu-20.04
     
   steps:
-  - task: Maven@3
-    displayName: Maven pom.xml
-    inputs:
-      mavenPOMFile: $(BuildParameters.mavenPOMFile)
-      goals: 'clean install'
-      options: '-Dmaven.test.skip=true'
-      mavenOptions: '-Xmx3072m'
-      javaHomeOption: 'JDKVersion'
-      jdkArchitectureOption: 'x64'
-  - task: CopyFiles@2
-    displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
-    condition: succeededOrFailed()
-    inputs:
-      SourceFolder: $(system.defaultworkingdirectory)
-      Contents: '**/*.jar'
-      TargetFolder: $(build.artifactstagingdirectory)
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: drop'
-    condition: succeededOrFailed()
-    inputs:
-      PathtoPublish: $(build.artifactstagingdirectory)
+  
+  # DO NOT DELETE =======================================================================
+  # - task: Maven@3
+  #   displayName: Maven pom.xml
+  #   inputs:
+  #     mavenPOMFile: $(BuildParameters.mavenPOMFile)
+  #     goals: 'clean install'
+  #     options: '-Dmaven.test.skip=true'
+  #     mavenOptions: '-Xmx3072m'
+  #     javaHomeOption: 'JDKVersion'
+  #     jdkArchitectureOption: 'x64'
+  # - task: CopyFiles@2
+  #   displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+  #   condition: succeededOrFailed()
+  #   inputs:
+  #     SourceFolder: $(system.defaultworkingdirectory)
+  #     Contents: '**/*.jar'
+  #     TargetFolder: $(build.artifactstagingdirectory)
+  # - task: PublishBuildArtifacts@1
+  #   displayName: 'Publish Artifact: drop'
+  #   condition: succeededOrFailed()
+  #   inputs:
+  #     PathtoPublish: $(build.artifactstagingdirectory)
+    # DO NOT DELETE =======================================================================
+
   - task: Bash@3
     displayName: Bash Task
     inputs:
       targetType: 'inline'
       script: echo This is a simple echo message for successful build.
+
+  - task: Bash@3
+    displayName: Bash Task 2
+    inputs:
+      targetType: 'inline'
+      script: echo This is the second simple echo message for successful build.
+
+  - task: Bash@3
+    displayName: Bash Task 3
+    inputs:
+      targetType: 'inline'
+      script: echo This is third echo message for successful build.
   
   # - task: EmailReport@1
   #   displayName: Send Email Report On Failure
