@@ -16,7 +16,7 @@ jobs:
 - job: Job_1
   displayName: Agent job 1
   pool:
-    name: Default
+    vmImage: ubuntu-20.04
     
   steps:
   - task: Maven@3
@@ -46,20 +46,22 @@ jobs:
       targetType: 'inline'
       script: echo This is a simple echo message for successful build.
   
-  - task: EmailReport@1
-    displayName: Send Email Report On Failure
-    condition: failed()
-    inputs:
-      sendMailConditionConfig: 'Always'
-      subject: '[{environmentStatus}] {passPercentage} tests passed in $(Release.EnvironmentName) stage for $(Build.BuildNumber)'
-      toAddress: 'slahiruc@gmail.com'
-      defaultDomain: 'microsoft.com'
-      groupTestResultsBy: 'run'
-      includeCommits: true
-      maxTestFailuresToShow: '15'
-      includeOthersInTotal: false
-      usePreviousEnvironment: false
-      smtpConnectionEndpoint: 'SMTPForHotmail'
+  # - task: EmailReport@1
+  #   displayName: Send Email Report On Failure
+  #   condition: failed()
+  #   inputs:
+  #     sendMailConditionConfig: 'Always'
+  #     subject: '[{environmentStatus}] {passPercentage} tests passed in $(Release.EnvironmentName) stage for $(Build.BuildNumber)'
+  #     toAddress: 'slahiruc@gmail.com'
+  #     defaultDomain: 'microsoft.com'
+  #     groupTestResultsBy: 'run'
+  #     includeCommits: true
+  #     maxTestFailuresToShow: '15'
+  #     includeOthersInTotal: false
+  #     usePreviousEnvironment: false
+  #     smtpConnectionEndpoint: 'SMTPForHotmail'
+  
+  ##==============================================
 
   # - task: EmailReport@1
   #   displayName: Send Email Report On Success
