@@ -11,6 +11,7 @@ pr:
   branches:
     include:
     - master
+    - testBranch
 
 jobs:
 - job: Job_1
