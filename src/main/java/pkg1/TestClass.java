@@ -2,7 +2,7 @@ package pkg1;
 
 public class TestClass {
 
-    public TestClass() {    
+    public TestClass(int a) {
         System.out.println("Object is created !");
         System.out.println("Object is created ... Execution going to start! 2,3");
         System.out.println("This is a change in testBranch");
