@@ -3,7 +3,7 @@ variables:
   value: pom.xml
 name: $(date:yyyyMMdd)$(rev:.r)
 
-trigger: none
+#trigger: none
 #  tags:
 #    include:
 #      - v*
