@@ -3,14 +3,14 @@ variables:
   value: pom.xml
 name: $(date:yyyyMMdd)$(rev:.r)
 
-trigger:
-  tags:
-    include:
-      - v*
-pr:
-  branches:
-    include:
-    - master
+trigger: none
+#  tags:
+#    include:
+#      - v*
+#pr:
+#  branches:
+#    include:
+#    - master
 
 jobs:
 - job: Job_1
