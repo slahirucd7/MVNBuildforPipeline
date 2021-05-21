@@ -6,4 +6,8 @@ public class TestClass {
         System.out.println("Object is created !");
         System.out.println("Object is created ... Execution going to start! 2....");
     }
+
+    public void TestMethod(){
+        System.out.println("This is a test method");
+    }
 }
