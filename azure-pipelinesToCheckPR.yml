@@ -17,8 +17,8 @@ jobs:
     
   steps:
   - bash: |
-        $(SYSTEM_PULLREQUEST_PULLREQUESTNUMBER)
-        $(SYSTEM_PULLREQUEST_PULLREQUESTID)
+        $SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
+        $SYSTEM_PULLREQUEST_PULLREQUESTID
         echo This is a simple echo message for successful build.
 
   - task: Bash@3
