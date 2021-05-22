@@ -1,0 +1,41 @@
+variables:
+- name: BuildParameters.mavenPOMFile
+  value: pom.xml
+name: $(date:yyyyMMdd)$(rev:.r)
+
+pr:
+  branches:
+    include:
+    - testBranch
+    - master
+
+jobs:
+- job: Job_1
+  displayName: Agent job 1
+  pool:
+    vmImage: ubuntu-20.04
+    
+  steps:
+  - task: Bash@3
+    displayName: Bash Task
+    inputs:
+      targetType: 'inline'
+      script: |
+        $(SYSTEM_PULLREQUEST_PULLREQUESTNUMBER)
+        $(SYSTEM_PULLREQUEST_PULLREQUESTID)
+        echo This is a simple echo message for successful build.
+
+  - task: Bash@3
+    displayName: Bash Task 2
+    inputs:
+      targetType: 'inline'
+      script: echo This is the second simple echo message for successful build.
+
+  - task: Bash@3
+    displayName: Bash Task 3
+    inputs:
+      targetType: 'inline'
+      script: echo This is third echo message for successful build.
+
+   
+...
