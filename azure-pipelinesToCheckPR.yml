@@ -20,7 +20,10 @@ jobs:
     displayName: Bash Task
     inputs:
       targetType: 'inline'
-      script: echo This is a simple echo message for successful build.
+      script: |
+        $(SYSTEM_PULLREQUEST_PULLREQUESTNUMBER)
+        $(SYSTEM_PULLREQUEST_PULLREQUESTID)
+        echo This is a simple echo message for successful build.
 
   - task: Bash@3
     displayName: Bash Task 2
