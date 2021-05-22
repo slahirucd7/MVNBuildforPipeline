@@ -6,7 +6,6 @@ name: $(date:yyyyMMdd)$(rev:.r)
 pr:
   branches:
     include:
-    - testBranch
     - master
 
 jobs:
