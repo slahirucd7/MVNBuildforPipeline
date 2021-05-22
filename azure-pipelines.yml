@@ -1,91 +1,91 @@
-variables:
-- name: BuildParameters.mavenPOMFile
-  value: pom.xml
-name: $(date:yyyyMMdd)$(rev:.r)
-
-trigger:
-  tags:
-    include:
-      - v*
-pr:
-  branches:
-    include:
-    - master
-
-jobs:
-- job: Job_1
-  displayName: Agent job 1
-  pool:
-    vmImage: ubuntu-20.04
-    
-  steps:
-  
-  # DO NOT DELETE =======================================================================
-  # - task: Maven@3
-  #   displayName: Maven pom.xml
-  #   inputs:
-  #     mavenPOMFile: $(BuildParameters.mavenPOMFile)
-  #     goals: 'clean install'
-  #     options: '-Dmaven.test.skip=true'
-  #     mavenOptions: '-Xmx3072m'
-  #     javaHomeOption: 'JDKVersion'
-  #     jdkArchitectureOption: 'x64'
-  # - task: CopyFiles@2
-  #   displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
-  #   condition: succeededOrFailed()
-  #   inputs:
-  #     SourceFolder: $(system.defaultworkingdirectory)
-  #     Contents: '**/*.jar'
-  #     TargetFolder: $(build.artifactstagingdirectory)
-  # - task: PublishBuildArtifacts@1
-  #   displayName: 'Publish Artifact: drop'
-  #   condition: succeededOrFailed()
-  #   inputs:
-  #     PathtoPublish: $(build.artifactstagingdirectory)
-    # DO NOT DELETE =======================================================================
-
-  - task: Bash@3
-    displayName: Bash Task
-    inputs:
-      targetType: 'inline'
-      script: echo This is a simple echo message for successful build.
-
-  - task: Bash@3
-    displayName: Bash Task 2
-    inputs:
-      targetType: 'inline'
-      script: echo This is the second simple echo message for successful build.
-
-  - task: Bash@3
-    displayName: Bash Task 3
-    inputs:
-      targetType: 'inline'
-      script: echo This is third echo message for successful build.
-  
-  # - task: EmailReport@1
-  #   displayName: Send Email Report On Failure
-  #   condition: failed()
-  #   inputs:
-  #     sendMailConditionConfig: 'Always'
-  #     subject: '[{environmentStatus}] {passPercentage} tests passed in $(Release.EnvironmentName) stage for $(Build.BuildNumber)'
-  #     toAddress: 'slahiruc@gmail.com'
-  #     defaultDomain: 'microsoft.com'
-  #     groupTestResultsBy: 'run'
-  #     includeCommits: true
-  #     maxTestFailuresToShow: '15'
-  #     includeOthersInTotal: false
-  #     usePreviousEnvironment: false
-  #     smtpConnectionEndpoint: 'SMTPForHotmail'
-  
-  ##==============================================
-
-  # - task: EmailReport@1
-  #   displayName: Send Email Report On Success
-  #   condition: failed()
-  #   inputs:
-  #     sendMailConditionConfig: Always
-  #     toAddress: slahiruc@gmail.com
-  #     smtpConnectionEndpoint: 6b1603f7-22be-43c0-a322-bf74474c9e48
-  
-   
-...
+#variables:
+#- name: BuildParameters.mavenPOMFile
+#  value: pom.xml
+#name: $(date:yyyyMMdd)$(rev:.r)
+#
+#trigger:
+#  tags:
+#    include:
+#      - v*
+#pr:
+#  branches:
+#    include:
+#    - master
+#
+#jobs:
+#- job: Job_1
+#  displayName: Agent job 1
+#  pool:
+#    vmImage: ubuntu-20.04
+#
+#  steps:
+#
+#  # DO NOT DELETE =======================================================================
+#  # - task: Maven@3
+#  #   displayName: Maven pom.xml
+#  #   inputs:
+#  #     mavenPOMFile: $(BuildParameters.mavenPOMFile)
+#  #     goals: 'clean install'
+#  #     options: '-Dmaven.test.skip=true'
+#  #     mavenOptions: '-Xmx3072m'
+#  #     javaHomeOption: 'JDKVersion'
+#  #     jdkArchitectureOption: 'x64'
+#  # - task: CopyFiles@2
+#  #   displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+#  #   condition: succeededOrFailed()
+#  #   inputs:
+#  #     SourceFolder: $(system.defaultworkingdirectory)
+#  #     Contents: '**/*.jar'
+#  #     TargetFolder: $(build.artifactstagingdirectory)
+#  # - task: PublishBuildArtifacts@1
+#  #   displayName: 'Publish Artifact: drop'
+#  #   condition: succeededOrFailed()
+#  #   inputs:
+#  #     PathtoPublish: $(build.artifactstagingdirectory)
+#    # DO NOT DELETE =======================================================================
+#
+#  - task: Bash@3
+#    displayName: Bash Task
+#    inputs:
+#      targetType: 'inline'
+#      script: echo This is a simple echo message for successful build.
+#
+#  - task: Bash@3
+#    displayName: Bash Task 2
+#    inputs:
+#      targetType: 'inline'
+#      script: echo This is the second simple echo message for successful build.
+#
+#  - task: Bash@3
+#    displayName: Bash Task 3
+#    inputs:
+#      targetType: 'inline'
+#      script: echo This is third echo message for successful build.
+#
+#  # - task: EmailReport@1
+#  #   displayName: Send Email Report On Failure
+#  #   condition: failed()
+#  #   inputs:
+#  #     sendMailConditionConfig: 'Always'
+#  #     subject: '[{environmentStatus}] {passPercentage} tests passed in $(Release.EnvironmentName) stage for $(Build.BuildNumber)'
+#  #     toAddress: 'slahiruc@gmail.com'
+#  #     defaultDomain: 'microsoft.com'
+#  #     groupTestResultsBy: 'run'
+#  #     includeCommits: true
+#  #     maxTestFailuresToShow: '15'
+#  #     includeOthersInTotal: false
+#  #     usePreviousEnvironment: false
+#  #     smtpConnectionEndpoint: 'SMTPForHotmail'
+#
+#  ##==============================================
+#
+#  # - task: EmailReport@1
+#  #   displayName: Send Email Report On Success
+#  #   condition: failed()
+#  #   inputs:
+#  #     sendMailConditionConfig: Always
+#  #     toAddress: slahiruc@gmail.com
+#  #     smtpConnectionEndpoint: 6b1603f7-22be-43c0-a322-bf74474c9e48
+#
+#
+#...
