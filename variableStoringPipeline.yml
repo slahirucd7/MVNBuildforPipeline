@@ -1,5 +1,3 @@
-trigger: none
-
 variables:
 - name: BuildParameters.mavenPOMFile
   value: pom.xml
