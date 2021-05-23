@@ -10,6 +10,7 @@ variables:
 
 steps:
   - script: |
+      ls
       echo ${{ variables.one }} # outputs initialValue
       echo $(one)
       echo $(SYSTEM_PULLREQUEST_PULLREQUESTNUMBER)
