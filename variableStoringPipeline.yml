@@ -23,8 +23,6 @@ steps:
         echo $SYSTEM_PULL_REQUEST_SOURCEBRANCH
         echo $SYSTEM_PULLREQUEST_ISFORK
         echo $SYSTEM_PULLREQUEST_SOURCEREPOSITORYURI
-#        echo "PR number = ${{ github.event.pull_request.number }}"
-#        echo "PR number = ${{ env.PR_NUMBER }}"
         echo 'Hello world end 2'
         variables['System.PullRequest.SourceRepositoryURI']
       noProfile: false
@@ -37,3 +35,9 @@ steps:
       method: 'POST'
       urlSuffix: '/repos/$BUILD_REPOSITORY_ID/issues/$SYSTEM_PULLREQUEST_PULLREQUESTNUMBER/'
       waitForCompletion: 'false'
+
+
+
+
+#        echo "PR number = ${{ github.event.pull_request.number }}"
+#        echo "PR number = ${{ env.PR_NUMBER }}"
