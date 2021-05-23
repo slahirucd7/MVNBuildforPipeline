@@ -15,10 +15,11 @@ steps:
       targetType: 'inline'
       script: |
         echo 'Hello world'
-        echo $SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
-        echo $SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
-        echo $SYSTEM_PULLREQUEST_PULLREQUESTID
-        echo $SYSTEM_PULL_REQUEST_SOURCEBRANCH
-        echo $SYSTEM_PULLREQUEST_ISFORK
+        echo $(SYSTEM_PULLREQUEST_PULLREQUESTNUMBER)
+        echo $(SYSTEM_PULLREQUEST_PULLREQUESTNUMBER)
+        echo $(SYSTEM_PULLREQUEST_PULLREQUESTID)
+        echo $(SYSTEM_PULL_REQUEST_SOURCEBRANCH)
+        echo $(SYSTEM_PULLREQUEST_ISFORK)
+        echo 'Hello world end'
       noProfile: false
       noRc: false
