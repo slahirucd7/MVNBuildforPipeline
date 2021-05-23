@@ -2,7 +2,7 @@
 pr:
   branches:
     include:
-    - master
+    - b4
 
 variables:
 - name: one
