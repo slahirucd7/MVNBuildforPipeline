@@ -9,6 +9,26 @@ variables:
 
 pool:
     vmImage: ubuntu-20.04
+
+stages:
+  - stage: Build
+    jobs:
+      - job: BuildJob
+        steps:
+          - script: echo Building!
+  - stage: Test
+    jobs:
+      - job: TestOnWindows
+        steps:
+          - script: echo Testing on Windows!
+      - job: TestOnLinux
+        steps:
+          - script: echo Testing on Linux!
+  - stage: Deploy
+    jobs:
+      - job: Deploy
+        steps:
+          - script: echo Deploying the code!
 steps:
 #  - task: Maven@3
 #    inputs:
@@ -20,8 +40,17 @@ steps:
 #      publishJUnitResults: false
 #      testResultsFiles: '**/TEST-*.xml'
 #      goals: 'package'
+  - task: Maven@3
+    displayName: Maven pom.xml
+    inputs:
+      mavenPOMFile: $(BuildParameters.mavenPOMFile)
+      goals: 'clean install'
+      options: '-Dmaven.test.skip=true'
+      mavenOptions: '-Xmx3072m'
+      javaHomeOption: 'JDKVersion'
 
   - task: Bash@3
+    displayName: Bash Task
     inputs:
       targetType: 'inline'
       script: |
