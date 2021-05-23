@@ -9,12 +9,12 @@ variables:
 
 pool:
     vmImage: ubuntu-20.04
-    
+
 steps:
   - task: Maven@3
     displayName: Maven pom.xml
     inputs:
-      mavenPOMFile: $(BuildParameters.mavenPOMFile)
+      mavenPOMFile: 'pom.xml'
       goals: 'clean install'
       options: '-Dmaven.test.skip=true'
       mavenOptions: '-Xmx3072m'
