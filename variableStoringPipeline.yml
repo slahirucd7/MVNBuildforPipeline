@@ -11,14 +11,14 @@ pool:
     vmImage: ubuntu-20.04
 
 steps:
-  - task: Maven@3
-    displayName: Maven pom.xml
-    inputs:
-      mavenPOMFile: 'pom.xml'
-      goals: 'clean install'
-      options: '-Dmaven.test.skip=true'
-      mavenOptions: '-Xmx3072m'
-      javaHomeOption: 'JDKVersion'
+#  - task: Maven@3
+#    displayName: Maven pom.xml
+#    inputs:
+#      mavenPOMFile: 'pom.xml'
+#      goals: 'clean install'
+#      options: '-Dmaven.test.skip=true'
+#      mavenOptions: '-Xmx3072m'
+#      javaHomeOption: 'JDKVersion'
 
   - task: Bash@3
     displayName: Bash Task
@@ -31,6 +31,7 @@ steps:
         echo $SYSTEM_PULLREQUEST_PULLREQUESTID
         echo $SYSTEM_PULL_REQUEST_SOURCEBRANCH
         echo $SYSTEM_PULLREQUEST_ISFORK
+        echo $SYSTEM_PULLREQUEST_SOURCEREPOSITORYURI
         echo 'Hello world end'
       noProfile: false
       noRc: false
