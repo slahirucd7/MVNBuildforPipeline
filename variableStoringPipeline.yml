@@ -27,7 +27,7 @@ jobs:
       ArtifactName: 'variables'
       publishLocation: 'Container'
 
-  - bash: |
+  - script: |
         echo $SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
         echo $SYSTEM_PULLREQUEST_PULLREQUESTID
         echo This is a simple echo message for successful build.
