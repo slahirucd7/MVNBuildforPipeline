@@ -1,0 +1,30 @@
+name: $(date:yyyyMMdd)$(rev:.r)
+
+pr:
+ branches:
+   include:
+   - b4
+
+jobs:
+- job: Job_1
+  displayName: Agent job 1
+  pool:
+   vmImage: ubuntu-20.04
+
+  steps:
+  - script: |
+      ls
+      a=10
+      echo $a
+      echo ${{ variables.one }} # outputs initialValue
+      echo $(one)
+      echo $(SYSTEM_PULLREQUEST_PULLREQUESTNUMBER)
+      echo $(SYSTEM_PULLREQUEST_PULLREQUESTID)
+      echo $SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
+      echo $SYSTEM_PULLREQUEST_ISFORK
+      $SYSTEM_PULL_REQUEST_SOURCEBRANCH
+      echo $SYSTEM_PULLREQUEST_PULLREQUESTID
+      $SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
+      $SYSTEM_PULLREQUEST_PULLREQUESTID
+      echo $(System.PullRequest.PullRequestId)
+    displayName: First variable pass
