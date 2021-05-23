@@ -4,65 +4,73 @@ pr:
     include:
     - master
 
-jobs:
-- job: main
-  steps:
+# jobs:
+# - job: main
+#   steps:
   
-  - script: |
-      $SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
-      $SYSTEM_PULLREQUEST_PULLREQUESTID
-      echo $SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
-      echo $SYSTEM_PULLREQUEST_PULLREQUESTID
-      echo $(SYSTEM_PULLREQUEST_PULLREQUESTNUMBER)
-      echo $(SYSTEM_PULLREQUEST_PULLREQUESTID)
-      $(SYSTEM_PULLREQUEST_PULLREQUESTNUMBER)
-      $(SYSTEM_PULLREQUEST_PULLREQUESTID)
-      echo $env:SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
-      echo $env:SYSTEM_PULLREQUEST_PULLREQUESTID
-      $env:SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
-      $env:SYSTEM_PULLREQUEST_PULLREQUESTID
-      echo $[SYSTEM_PULLREQUEST_PULLREQUESTNUMBER]
-      echo $[SYSTEM_PULLREQUEST_PULLREQUESTID]
-      echo $(SYSTEM_PULLREQUEST_PULLREQUESTNUMBER)
-      echo $(SYSTEM_PULLREQUEST_PULLREQUESTID)
-      echo This is a simple echo message for successful build.
+  # - script: |
+  #     $SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
+  #     $SYSTEM_PULLREQUEST_PULLREQUESTID
+  #     echo $SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
+  #     echo $SYSTEM_PULLREQUEST_PULLREQUESTID
+  #     echo $(SYSTEM_PULLREQUEST_PULLREQUESTNUMBER)
+  #     echo $(SYSTEM_PULLREQUEST_PULLREQUESTID)
+  #     $(SYSTEM_PULLREQUEST_PULLREQUESTNUMBER)
+  #     $(SYSTEM_PULLREQUEST_PULLREQUESTID)
+  #     echo $env:SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
+  #     echo $env:SYSTEM_PULLREQUEST_PULLREQUESTID
+  #     $env:SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
+  #     $env:SYSTEM_PULLREQUEST_PULLREQUESTID
+  #     echo $[SYSTEM_PULLREQUEST_PULLREQUESTNUMBER]
+  #     echo $[SYSTEM_PULLREQUEST_PULLREQUESTID]
+  #     echo $(SYSTEM_PULLREQUEST_PULLREQUESTNUMBER)
+  #     echo $(SYSTEM_PULLREQUEST_PULLREQUESTID)
+  #     echo This is a simple echo message for successful build.
 
-  - bash: |
-      $SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
-      $SYSTEM_PULLREQUEST_PULLREQUESTID
-      echo $SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
-      echo $SYSTEM_PULLREQUEST_PULLREQUESTID
-      echo $(SYSTEM_PULLREQUEST_PULLREQUESTNUMBER)
-      echo $(SYSTEM_PULLREQUEST_PULLREQUESTID)
-      $(SYSTEM_PULLREQUEST_PULLREQUESTNUMBER)
-      $(SYSTEM_PULLREQUEST_PULLREQUESTID)
-      echo $env:SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
-      echo $env:SYSTEM_PULLREQUEST_PULLREQUESTID
-      $env:SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
-      $env:SYSTEM_PULLREQUEST_PULLREQUESTID
-      echo $[SYSTEM_PULLREQUEST_PULLREQUESTNUMBER]
-      echo $[SYSTEM_PULLREQUEST_PULLREQUESTID]
-      echo $(SYSTEM_PULLREQUEST_PULLREQUESTNUMBER)
-      echo $(SYSTEM_PULLREQUEST_PULLREQUESTID)
-      echo This is a simple echo message for successful build.
-
+  # - bash: |
+  #     $SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
+  #     $SYSTEM_PULLREQUEST_PULLREQUESTID
+  #     echo $SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
+  #     echo $SYSTEM_PULLREQUEST_PULLREQUESTID
+  #     echo $(SYSTEM_PULLREQUEST_PULLREQUESTNUMBER)
+  #     echo $(SYSTEM_PULLREQUEST_PULLREQUESTID)
+  #     $(SYSTEM_PULLREQUEST_PULLREQUESTNUMBER)
+  #     $(SYSTEM_PULLREQUEST_PULLREQUESTID)
+  #     echo $env:SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
+  #     echo $env:SYSTEM_PULLREQUEST_PULLREQUESTID
+  #     $env:SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
+  #     $env:SYSTEM_PULLREQUEST_PULLREQUESTID
+  #     echo $[SYSTEM_PULLREQUEST_PULLREQUESTNUMBER]
+  #     echo $[SYSTEM_PULLREQUEST_PULLREQUESTID]
+  #     echo $(SYSTEM_PULLREQUEST_PULLREQUESTNUMBER)
+  #     echo $(SYSTEM_PULLREQUEST_PULLREQUESTID)
+  #     echo This is a simple echo message for successful build.
+  
+stages:
+- stage: Build
+  jobs:
+  - job: BuildJob
+    steps:
+    - script: |
+        echo $SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
+        echo $SYSTEM_PULLREQUEST_PULLREQUESTID
         
-  - script: echo "##vso[task.setvariable variable=FOO;isOutput=true]"$[SYSTEM_PULLREQUEST_PULLREQUESTNUMBER]
-    displayName: Set output variables
-    name: myEnv
-- job: variables_handler
-  dependsOn: main
-  variables: 
-    FOO: $[ dependencies.main.outputs['myEnv.FOO'] ]
-  steps:
-  - task: CmdLine@2
-    displayName: Create artifact from variables
-    inputs:
-      script: |
-        echo "##vso[task.setvariable variable=FOO;]$(FOO)" >  $(Build.ArtifactStagingDirectory)/pipeline.env
-  - task: PublishBuildArtifacts@1
-    displayName: publish variables
-    inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      ArtifactName: 'variables'
-      publishLocation: 'Container'
+#   - script: echo "##vso[task.setvariable variable=FOO;isOutput=true]"$[SYSTEM_PULLREQUEST_PULLREQUESTNUMBER]
+#     displayName: Set output variables
+#     name: myEnv
+# - job: variables_handler
+#   dependsOn: main
+#   variables: 
+#     FOO: $[ dependencies.main.outputs['myEnv.FOO'] ]
+#   steps:
+#   - task: CmdLine@2
+#     displayName: Create artifact from variables
+#     inputs:
+#       script: |
+#         echo "##vso[task.setvariable variable=FOO;]$(FOO)" >  $(Build.ArtifactStagingDirectory)/pipeline.env
+#   - task: PublishBuildArtifacts@1
+#     displayName: publish variables
+#     inputs:
+#       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#       ArtifactName: 'variables'
+#       publishLocation: 'Container'
