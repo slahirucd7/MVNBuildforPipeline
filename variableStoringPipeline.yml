@@ -9,37 +9,8 @@ variables:
 
 pool:
     vmImage: ubuntu-20.04
-
-stages:
-  - stage: Build
-    jobs:
-      - job: BuildJob
-        steps:
-          - script: echo Building!
-  - stage: Test
-    jobs:
-      - job: TestOnWindows
-        steps:
-          - script: echo Testing on Windows!
-      - job: TestOnLinux
-        steps:
-          - script: echo Testing on Linux!
-  - stage: Deploy
-    jobs:
-      - job: Deploy
-        steps:
-          - script: echo Deploying the code!
+    
 steps:
-#  - task: Maven@3
-#    inputs:
-#      mavenPomFile: 'pom.xml'
-#      mavenOptions: '-Xmx3072m'
-#      javaHomeOption: 'JDKVersion'
-#      jdkVersionOption: '1.11'
-#      jdkArchitectureOption: 'x64'
-#      publishJUnitResults: false
-#      testResultsFiles: '**/TEST-*.xml'
-#      goals: 'package'
   - task: Maven@3
     displayName: Maven pom.xml
     inputs:
