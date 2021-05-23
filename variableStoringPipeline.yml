@@ -7,6 +7,9 @@ variables:
 - name: one
   value: initialValue 
 
+env:
+  PR_NUMBER: ${{ github.event.pull_request.number }}
+
 pool:
     vmImage: ubuntu-20.04
 
@@ -32,6 +35,8 @@ steps:
         echo $SYSTEM_PULL_REQUEST_SOURCEBRANCH
         echo $SYSTEM_PULLREQUEST_ISFORK
         echo $SYSTEM_PULLREQUEST_SOURCEREPOSITORYURI
+        echo "PR number = ${{ github.event.pull_request.number }}"
+        echo "PR number = ${{ env.PR_NUMBER }}"
         echo 'Hello world end 2'
       noProfile: false
       noRc: false
