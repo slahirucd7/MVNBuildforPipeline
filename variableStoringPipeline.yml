@@ -7,22 +7,10 @@ variables:
 - name: one
   value: initialValue 
 
-env:
-  PR_NUMBER: ${{ github.event.pull_request.number }}
-
 pool:
     vmImage: ubuntu-20.04
 
 steps:
-#  - task: Maven@3
-#    displayName: Maven pom.xml
-#    inputs:
-#      mavenPOMFile: 'pom.xml'
-#      goals: 'clean install'
-#      options: '-Dmaven.test.skip=true'
-#      mavenOptions: '-Xmx3072m'
-#      javaHomeOption: 'JDKVersion'
-
   - task: Bash@3
     displayName: Bash Task
     inputs:
@@ -35,9 +23,17 @@ steps:
         echo $SYSTEM_PULL_REQUEST_SOURCEBRANCH
         echo $SYSTEM_PULLREQUEST_ISFORK
         echo $SYSTEM_PULLREQUEST_SOURCEREPOSITORYURI
-        echo "PR number = ${{ github.event.pull_request.number }}"
-        echo "PR number = ${{ env.PR_NUMBER }}"
+#        echo "PR number = ${{ github.event.pull_request.number }}"
+#        echo "PR number = ${{ env.PR_NUMBER }}"
         echo 'Hello world end 2'
         variables['System.PullRequest.SourceRepositoryURI']
       noProfile: false
       noRc: false
+
+  - task: InvokeRESTAPI@1
+    inputs:
+      connectionType: 'connectedServiceName'
+      serviceConnection: 'GitHubGenericConnection'
+      method: 'POST'
+      urlSuffix: '/repos/$BUILD_REPOSITORY_ID/issues/$SYSTEM_PULLREQUEST_PULLREQUESTNUMBER/'
+      waitForCompletion: 'false'
