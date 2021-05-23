@@ -2,7 +2,7 @@
 pr:
   branches:
     include:
-    - master
+    - b4
 
 variables:
 - name: one
@@ -33,7 +33,18 @@ steps:
       echo ${{ variables.one }} # outputs initialValue
       echo $(one) # outputs secondValue
     displayName: Second variable pass
-
+  - task: Bash@3
+    inputs:
+      targetType: 'inline'
+      script: |
+        echo 'Hello world'
+        $SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
+        $SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
+        $SYSTEM_PULLREQUEST_PULLREQUESTID
+        $SYSTEM_PULL_REQUEST_SOURCEBRANCH
+        $SYSTEM_PULLREQUEST_ISFORK
+      noProfile: false
+      noRc: false
 
 
 
