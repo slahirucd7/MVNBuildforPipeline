@@ -38,5 +38,6 @@ steps:
         echo "PR number = ${{ github.event.pull_request.number }}"
         echo "PR number = ${{ env.PR_NUMBER }}"
         echo 'Hello world end 2'
+        variables['System.PullRequest.SourceRepositoryURI']
       noProfile: false
       noRc: false
