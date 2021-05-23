@@ -12,6 +12,6 @@ public class TestClass {
     }
 
     public void TestMethod(){
-        System.out.println("This is a test method.. ... ...>>>>> ////////////    ");
+        System.out.println("This is a test method.. ... ...>>>>> /////////////    ");
     }
 }
