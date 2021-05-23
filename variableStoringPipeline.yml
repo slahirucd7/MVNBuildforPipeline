@@ -2,12 +2,14 @@
 pr:
   branches:
     include:
-    - master
+    - b3
 
 variables:
 - name: one
   value: initialValue 
 
+pool:
+    vmImage: ubuntu-20.04
 steps:
   - script: |
       ls
