@@ -6,7 +6,7 @@ pr:
 jobs:
 - job: main
   steps:
-  - script: echo "##vso[task.setvariable variable=FOO;isOutput=true]$SYSTEM_PULLREQUEST_PULLREQUESTNUMBER"
+  - script: echo "##vso[task.setvariable variable=FOO;isOutput=true]"$SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
     displayName: Set output variables
     name: myEnv
 - job: variables_handler
