@@ -17,7 +17,7 @@ jobs:
         echo "This is a simple message"
         echo "##vso[task.logissue type=error]Something went very wrong."
         echo "##vso[task.setvariable variable=testvar;]testvalue"
-        echo $testvar
+        echo $TESTVAR
         echo "##vso[task.setvariable variable=FOO1;]ABCD"
         echo $FOO1
         echo "##vso[task.setvariable variable=FOO;]$SYSTEM_PULLREQUEST_PULLREQUESTNUMBER" >  $(Build.ArtifactStagingDirectory)/pipeline.env
