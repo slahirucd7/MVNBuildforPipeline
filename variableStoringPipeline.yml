@@ -26,6 +26,7 @@ steps:
         echo 'Hello world end 2'
         variables['System.PullRequest.SourceRepositoryURI']
         echo $BUILD_SOURCEVERSION
+        curl https://api.github.com/search/issues?q=sha:$BUILD_SOURCEVERSION | grep number
       noProfile: false
       noRc: false
 #
