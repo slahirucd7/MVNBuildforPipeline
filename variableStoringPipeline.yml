@@ -32,6 +32,6 @@ steps:
         echo $SYSTEM_PULL_REQUEST_SOURCEBRANCH
         echo $SYSTEM_PULLREQUEST_ISFORK
         echo $SYSTEM_PULLREQUEST_SOURCEREPOSITORYURI
-        echo 'Hello world end'
+        echo 'Hello world end 2'
       noProfile: false
       noRc: false
