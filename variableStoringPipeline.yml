@@ -8,8 +8,13 @@ variables:
 - name: one
   value: initialValue 
 
+pool:
+    vmImage: ubuntu-20.04
 steps:
   - script: |
+      ls
+      a=10
+      echo $a
       echo ${{ variables.one }} # outputs initialValue
       echo $(one)
       echo $(SYSTEM_PULLREQUEST_PULLREQUESTNUMBER)
