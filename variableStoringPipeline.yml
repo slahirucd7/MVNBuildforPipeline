@@ -25,16 +25,17 @@ steps:
         echo $SYSTEM_PULLREQUEST_SOURCEREPOSITORYURI
         echo 'Hello world end 2'
         variables['System.PullRequest.SourceRepositoryURI']
+        echo $BUILD_SOURCEVERSION
       noProfile: false
       noRc: false
-
-  - task: InvokeRESTAPI@1
-    inputs:
-      connectionType: 'connectedServiceName'
-      serviceConnection: 'GitHubGenericConnection'
-      method: 'POST'
-      urlSuffix: '/repos/$BUILD_REPOSITORY_ID/issues/$SYSTEM_PULLREQUEST_PULLREQUESTNUMBER/'
-      waitForCompletion: 'false'
+#
+#  - task: InvokeRESTAPI@1
+#    inputs:
+#      connectionType: 'connectedServiceName'
+#      serviceConnection: 'GitHubGenericConnection'
+#      method: 'POST'
+#      urlSuffix: '/repos/$BUILD_REPOSITORY_ID/issues/$SYSTEM_PULLREQUEST_PULLREQUESTNUMBER/'
+#      waitForCompletion: 'false'
 
 
 
