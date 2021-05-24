@@ -13,48 +13,51 @@ variables:
     value: initialValue
 
 stages:
-  - stage: Search_pull_request_Number
-    jobs:
-      - job: Obtain_pull_request_number
-        steps:
-          - task: Bash@3
-            displayName: Bash Task
-            inputs:
-              targetType: 'inline'
-              script: |
-                echo $BUILD_SOURCEVERSION
-                pullRequestNumberFromCurl=$(curl https://api.github.com/search/issues?q=sha:$BUILD_SOURCEVERSION | grep number | grep -o '[0-9]*')
-                echo $pullRequestNumberFromCurl
-                echo '##vso[task.setvariable variable=pullRequestNumber;isOutput=true]ABCDEF'
-                echo '##vso[task.setvariable variable=pullRequestNumber;isOutput=true]secondValue'
-                echo '##vso[task.setvariable variable=one;isOutput=true]secondValue'
-                echo $(pullRequestNumber)
-                echo $(one) # outputs secondValue
-              noProfile: false
-              noRc: false
-#  - stage: Test
+#  - stage: Search_pull_request_Number
 #    jobs:
-#      - job: Output_env_variable
+#      - job: Obtain_pull_request_number
 #        steps:
-#          - script: echo "##vso[task.setvariable variable=PRNumber;isOutput=true]$(pullRequestNumber)"
-#            displayName: Set output variable
-#            name: buildEnv
-#      - job: Assign_pullRequestNumber_as_env_variable
-#        dependsOn: Output_env_variable
-#        variables:
-#          PRNumber: $[ dependencies.Output_env_variable.outputs['buildEnv.PRNumber']]
-#        steps:
-#          - task: CmdLine@2
-#            displayName: Create file from variables
+#          - task: Bash@3
+#            displayName: Bash Task
 #            inputs:
+#              targetType: 'inline'
 #              script: |
-#                echo "##vso[task.setvariable variable=PRNumber;]$(pullRequestNumber)" >  $(Build.ArtifactStagingDirectory)/pipeline.env
-#          - task: PublishBuildArtifacts@1
-#            displayName: publish variables
-#            inputs:
-#              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-#              ArtifactName: 'variables'
-#              publishLocation: 'Container'
+#                echo $BUILD_SOURCEVERSION
+#                pullRequestNumberFromCurl=$(curl https://api.github.com/search/issues?q=sha:$BUILD_SOURCEVERSION | grep number | grep -o '[0-9]*')
+#                echo $pullRequestNumberFromCurl
+#                echo '##vso[task.setvariable variable=pullRequestNumber]ABCDEF'
+#                echo '##vso[task.setvariable variable=pullRequestNumber]secondValue'
+#                echo '##vso[task.setvariable variable=one]secondValue'
+#                echo $(pullRequestNumber)
+#                echo $(one) # outputs secondValue
+#              noProfile: false
+#              noRc: false
+  - stage: Test
+    jobs:
+      - job: Output_env_variable
+        steps:
+          - script: |
+              echo $BUILD_SOURCEVERSION
+              pullRequestNumberFromCurl=$(curl https://api.github.com/search/issues?q=sha:$BUILD_SOURCEVERSION | grep number | grep -o '[0-9]*')
+              echo "##vso[task.setvariable variable=PRNumber;isOutput=true]$(pullRequestNumberFromCurl)"
+            displayName: Set output variable
+            name: buildEnv
+      - job: Assign_pullRequestNumber_as_env_variable
+        dependsOn: Output_env_variable
+        variables:
+          PRNumber: $[ dependencies.Output_env_variable.outputs['buildEnv.PRNumber']]
+        steps:
+          - task: CmdLine@2
+            displayName: Create file from variables
+            inputs:
+              script: |
+                echo "##vso[task.setvariable variable=PRNumber;]$(pullRequestNumber)" >  $(Build.ArtifactStagingDirectory)/pipeline.env
+          - task: PublishBuildArtifacts@1
+            displayName: publish variables
+            inputs:
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+              ArtifactName: 'variables'
+              publishLocation: 'Container'
 
 
 
