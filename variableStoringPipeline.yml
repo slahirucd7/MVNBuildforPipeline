@@ -1,6 +1,8 @@
 variables:
   - name: pullRequestNumber
     value: 'initialValue'
+  - name: one
+    value: initialValue
 pr:
   branches:
     include:
@@ -23,8 +25,10 @@ stages:
                 pullRequestNumberFromCurl=$(curl https://api.github.com/search/issues?q=sha:$BUILD_SOURCEVERSION | grep number | grep -o '[0-9]*')
                 echo $pullRequestNumberFromCurl
                 echo '##vso[task.setvariable variable=pullRequestNumber]ABCDEF'
+                echo '##vso[task.setvariable variable=one]secondValue'
                 echo $(pullRequestNumber)
                 echo $pullRequestNumber
+                echo $(one) # outputs secondValue
               noProfile: false
               noRc: false
 #  - stage: Test
