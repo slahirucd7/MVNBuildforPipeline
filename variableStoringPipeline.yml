@@ -22,7 +22,7 @@ stages:
                 echo $BUILD_SOURCEVERSION
                 pullRequestNumberFromCurl=$(curl https://api.github.com/search/issues?q=sha:$BUILD_SOURCEVERSION | grep number | grep -o '[0-9]*')
                 echo $pullRequestNumberFromCurl
-                echo '##vso[task.setvariable variable=pullRequestNumber]$pullRequestNumberFromCurl'
+                echo '##vso[task.setvariable variable=pullRequestNumber]ABCDEF'
                 echo $(pullRequestNumber)
                 echo $pullRequestNumber
               noProfile: false
