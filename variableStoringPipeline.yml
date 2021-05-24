@@ -15,19 +15,19 @@ variables:
 jobs:
   - job: main
     steps:
-      - script: echo "##vso[task.setvariable variable=FOO;isOutput=true]$(curl https://api.github.com/search/issues?q=sha:$BUILD_SOURCEVERSION | grep number | grep -o '[0-9]*')"
+      - script: echo "##vso[task.setvariable variable=PRNumber;isOutput=true]$(curl https://api.github.com/search/issues?q=sha:$BUILD_SOURCEVERSION | grep number | grep -o '[0-9]*')"
         displayName: Set output variables
         name: myEnv
   - job: variables_handler
     dependsOn: main
     variables:
-      FOO: $[ dependencies.main.outputs['myEnv.FOO'] ]
+      PRNumber: $[ dependencies.main.outputs['myEnv.PRNumber'] ]
     steps:
       - task: CmdLine@2
         displayName: Create artifact from variables
         inputs:
           script: |
-            echo "##vso[task.setvariable variable=FOO;]$(FOO)" >  $(Build.ArtifactStagingDirectory)/pipeline.env
+            echo "##vso[task.setvariable variable=PRNumber;]$(PRNumber)" >  $(Build.ArtifactStagingDirectory)/pipeline.env
       - task: PublishBuildArtifacts@1
         displayName: publish variables
         inputs:
