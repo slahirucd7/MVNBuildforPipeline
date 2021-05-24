@@ -5,7 +5,7 @@ pr:
 
 pool:
     vmImage: ubuntu-20.04
-    
+
 variables:
   - name: pullRequestNumber
     value: 'initialValue'
@@ -27,6 +27,7 @@ stages:
                 echo $pullRequestNumberFromCurl
                 echo '##vso[task.setvariable variable=pullRequestNumber]ABCDEF'
                 echo '##vso[task.setvariable variable=pullRequestNumber]secondValue'
+                echo '##vso[task.setvariable variable=one]secondValue'
                 echo $(pullRequestNumber)
                 echo $(one) # outputs secondValue
               noProfile: false
