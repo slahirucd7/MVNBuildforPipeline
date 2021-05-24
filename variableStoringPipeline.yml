@@ -3,33 +3,90 @@ pr:
     include:
     - b4
 
-variables:
-- name: one
-  value: initialValue 
-
 pool:
     vmImage: ubuntu-20.04
 
-steps:
-  - task: Bash@3
-    displayName: Bash Task
-    inputs:
-      targetType: 'inline'
-      script: |
-        echo 'Hello world'
-        echo $SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
-        echo $SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
-        echo $SYSTEM_PULLREQUEST_PULLREQUESTID
-        echo $SYSTEM_PULL_REQUEST_SOURCEBRANCH
-        echo $SYSTEM_PULLREQUEST_ISFORK
-        echo $SYSTEM_PULLREQUEST_SOURCEREPOSITORYURI
-        echo 'Hello world end 2'
-        variables['System.PullRequest.SourceRepositoryURI']
-        echo $BUILD_SOURCEVERSION
-        pullRequestNumber=$(curl https://api.github.com/search/issues?q=sha:$BUILD_SOURCEVERSION | grep number | grep -o '[0-9]*')
-        echo $pullRequestNumber
-      noProfile: false
-      noRc: false
+stages:
+  - stage: Search_pull_request_Number
+    jobs:
+      - job: Obtain_pull_request_number
+        steps:
+          - task: Bash@3
+            displayName: Bash Task
+            inputs:
+              targetType: 'inline'
+              script: |
+                echo $BUILD_SOURCEVERSION
+                pullRequestNumber=$(curl https://api.github.com/search/issues?q=sha:$BUILD_SOURCEVERSION | grep number | grep -o '[0-9]*')
+                echo $pullRequestNumber
+              noProfile: false
+              noRc: false
+  - stage: Test
+    jobs:
+      - job: Output_env_variable
+        steps:
+          - script: echo "##vso[task.setvariable variable=PRNumber;isOutput=true]$(pullRequestNumber)"
+            displayName: Set output variable
+            name: buildEnv
+      - job: Assign_pullRequestNumber_as_env_variable
+        dependsOn: Output_env_variable
+        variables:
+          PRNumber: $[ dependencies.Output_env_variable.outputs['buildEnv.PRNumber']]
+        steps:
+          - task: CmdLine@2
+            displayName: Create file from variables
+            inputs:
+              script: |
+                echo "##vso[task.setvariable variable=PRNumber;]$(pullRequestNumber)" >  $(Build.ArtifactStagingDirectory)/pipeline.env
+          - task: PublishBuildArtifacts@1
+              displayName: publish variables
+              inputs:
+                PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+                ArtifactName: 'variables'
+                publishLocation: 'Container'
+
+
+
+
+
+
+
+
+
+
+#steps:
+#  - task: Bash@3
+#    displayName: Bash Task
+#    inputs:
+#      targetType: 'inline'
+#      script: |
+#        echo 'Hello world'
+#        echo $SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
+#        echo $SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
+#        echo $SYSTEM_PULLREQUEST_PULLREQUESTID
+#        echo $SYSTEM_PULL_REQUEST_SOURCEBRANCH
+#        echo $SYSTEM_PULLREQUEST_ISFORK
+#        echo $SYSTEM_PULLREQUEST_SOURCEREPOSITORYURI
+#        echo 'Hello world end 2'
+#        variables['System.PullRequest.SourceRepositoryURI']
+#        echo $BUILD_SOURCEVERSION
+#        pullRequestNumber=$(curl https://api.github.com/search/issues?q=sha:$BUILD_SOURCEVERSION | grep number | grep -o '[0-9]*')
+#        echo $pullRequestNumber
+#      noProfile: false
+#      noRc: false
+
+
+
+
+
+
+
+
+
+
+
+
+      #====================================
 #
 #  - task: InvokeRESTAPI@1
 #    inputs:
