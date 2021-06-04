@@ -22,7 +22,7 @@ stages:
 
     - script: |
         echo "##vso[task.setvariable variable=TAGS]$(git tag --sort=-creatordate)"
-        echo "##vso[task.setvariable variable=TAG]$(TAGS[0])"
+        echo "##vso[task.setvariable variable=TAG]$TAGS[0]"
       displayName: Set maven version
 
     - script: |
