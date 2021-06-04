@@ -20,6 +20,6 @@ stages:
     steps:
 
     - script: |
-        $tags = git tag --sort=-creatordate
-        $tag = $tags[0]
+        $tags=git tag --sort=-creatordate
+        $tag=$tags[0]
       displayName: Set maven version
