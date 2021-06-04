@@ -29,3 +29,11 @@ stages:
         echo "$(TAGS)"
         echo "$(TAG)"
       displayName: Set maven version
+    
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: |
+          $tags = git tag --sort=-creatordate
+          $tag = $tags[0]
+          echo$(tag)
