@@ -36,7 +36,7 @@ stages:
         # echo "CARBON_APIMGT_TAG_APIM: $(CARBON_APIMGT_TAG_APIM)"
 
         echo $(Build.SourceBranch)
-        echo "##vso[task.setvariable variable=CARBON_APIMGT_TAG_APIM]$(Build.SourceBranch) | sed 's|.*/||'"
+        echo "##vso[task.setvariable variable=CARBON_APIMGT_TAG_APIM]$($(Build.SourceBranch) | sed 's|.*/||')"
       displayName: Set maven version
     
     - script: |
