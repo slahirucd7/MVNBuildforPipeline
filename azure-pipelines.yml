@@ -21,18 +21,23 @@ stages:
       vmImage: ubuntu-latest
     steps:
 
-    - script: |
-        echo "#####1"
-        mapfile -t sortedTagList < <(git tag --sort=-creatordate )
-        echo "#####2"
-        echo "##vso[task.setvariable variable=CARBON_APIMGT_TAG_APIM]${sortedTagList[0]}"
-        echo "#####3"
-        echo ${sortedTagList[0]}
-        echo "#####4"
-      displayName: Set maven version
+    # - script: |
+    #     echo "#####1"
+    #     mapfile -t sortedTagList < <(git tag --sort=-creatordate )
+    #     echo "#####2"
+    #     echo "##vso[task.setvariable variable=CARBON_APIMGT_TAG_APIM]${sortedTagList[0]}"
+    #     echo "#####3"
+    #     echo ${sortedTagList[0]}
+    #     echo "#####4"
+    #   displayName: Set maven version
 
     - script: |
-        echo $(sortedTagList[0])
-        echo "CARBON_APIMGT_TAG_APIM: $(CARBON_APIMGT_TAG_APIM)"
+        # echo ${sortedTagList[0]}
+        # echo "CARBON_APIMGT_TAG_APIM: $(CARBON_APIMGT_TAG_APIM)"
         echo $(Build.SourceBranch)
+        echo "##vso[task.setvariable variable=CARBON_APIMGT_TAG_APIM]$($(Build.SourceBranch) | sed 's|.*/||')"
+      displayName: Set maven version
+    
+    - script: |
+        echo "CARBON_APIMGT_TAG_APIM: $(CARBON_APIMGT_TAG_APIM)"
       displayName: Set maven version
