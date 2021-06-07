@@ -3,11 +3,12 @@ trigger: none
 pr: none
 
 schedules:
-  - cron: "55 14 * * *"
+  - cron: "0 15 * * *"
     displayName: Daily midnight build
     branches:
       include:
       - master
+    always: true
 
 variables:
   BuildParameters.mavenPOMFile: 'pom.xml'
